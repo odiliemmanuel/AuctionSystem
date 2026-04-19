@@ -10,6 +10,8 @@ public class Bid {
 
     @Id
     private String id;
+    private String userId;
+    private String auctionId;
     private double amount;
     private LocalDateTime timeCreated;
     private BidStatus bidStatus;
