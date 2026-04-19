@@ -1,4 +1,10 @@
 package org.auctionsystem.AuctionSystem.data.models;
 
-public class Buyer {
+import lombok.Data;
+
+@Data
+public class Buyer extends User{
+
+    private double walletBalance;
+
 }

@@ -1,4 +1,9 @@
 package org.auctionsystem.AuctionSystem.data.models;
 
-public class Seller {
+import lombok.Data;
+
+@Data
+public class Seller extends User{
+
+    private String verificationStatus;
 }
