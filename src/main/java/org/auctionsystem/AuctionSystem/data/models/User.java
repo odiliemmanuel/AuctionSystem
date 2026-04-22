@@ -9,7 +9,9 @@ public class User {
 
     @Id
     private String id;
-    private String name;
+    private String firstName;
+    private String lastName;
+    private String userName;
     private String emailAddress;
     private String phoneNumber;
     private String password;
