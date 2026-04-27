@@ -1,5 +1,4 @@
 package org.auctionsystem.AuctionSystem.services;
 
-public class AuctionManagementService
-{
+public class AuctionManagementService{
 }
