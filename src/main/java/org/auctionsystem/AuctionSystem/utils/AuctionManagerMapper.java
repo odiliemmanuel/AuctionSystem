@@ -61,7 +61,11 @@ public class AuctionManagerMapper {
 
 
     public static CreateAuctionResponse mapCreateAuctionResponseToAuction(Auction auction){
+        CreateAuctionResponse createAuctionResponse = new CreateAuctionResponse();
 
+        createAuctionResponse.setId(auction.getId());
+        createAuctionResponse.setProduct(auction.getProduct());
+        createAuctionResponse.set
     }
 }
 
