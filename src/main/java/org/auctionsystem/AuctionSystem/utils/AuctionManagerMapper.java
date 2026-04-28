@@ -1,12 +1,17 @@
 package org.auctionsystem.AuctionSystem.utils;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.auctionsystem.AuctionSystem.data.models.Auction;
 import org.auctionsystem.AuctionSystem.data.models.Product;
 import org.auctionsystem.AuctionSystem.dtos.requests.CreateAuctionRequest;
+import org.auctionsystem.AuctionSystem.dtos.responses.CreateAuctionResponse;
 import org.auctionsystem.AuctionSystem.exceptions.InvalidInputException;
 import org.auctionsystem.AuctionSystem.exceptions.LowPriceOfProductException;
 import org.auctionsystem.AuctionSystem.exceptions.Messages;
+
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class AuctionManagerMapper {
 
@@ -53,5 +58,22 @@ public class AuctionManagerMapper {
 
         return auction;
     }
+
+
+    public static CreateAuctionResponse mapCreateAuctionResponseToAuction(Auction auction){
+
+    }
 }
+
+
+
+//private String id;
+//private Product product;
+//private int numberOfBidders;
+//@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+//private LocalDateTime startTime;
+//
+//@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+//private LocalTime endTIme;
+
 
