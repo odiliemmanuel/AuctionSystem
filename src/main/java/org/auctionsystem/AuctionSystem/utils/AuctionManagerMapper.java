@@ -14,6 +14,7 @@ public class AuctionManagerMapper {
 
         product.setName(createAuctionRequest.getProduct().getName());
         product.setDescription(createAuctionRequest.getProduct().getDescription());
+        product.setPrice(createAuctionRequest.getProduct().getPrice());
 
         auction.setProduct();
     }
