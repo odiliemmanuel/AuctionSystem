@@ -4,16 +4,18 @@ package org.auctionsystem.AuctionSystem.utils;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.auctionsystem.AuctionSystem.data.models.Auction;
 import org.auctionsystem.AuctionSystem.data.models.Product;
+import org.auctionsystem.AuctionSystem.data.repositories.ProductRepository;
 import org.auctionsystem.AuctionSystem.dtos.requests.CreateAuctionRequest;
 import org.auctionsystem.AuctionSystem.dtos.responses.CreateAuctionResponse;
 import org.auctionsystem.AuctionSystem.exceptions.InvalidInputException;
 import org.auctionsystem.AuctionSystem.exceptions.LowPriceOfProductException;
 import org.auctionsystem.AuctionSystem.exceptions.Messages;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-
+@Component
 public class AuctionManagerMapper {
+
 
 
     public static Auction mapCreateNewAuctionRequestToAuction(CreateAuctionRequest createAuctionRequest){
