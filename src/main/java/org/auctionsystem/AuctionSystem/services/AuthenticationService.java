@@ -8,6 +8,8 @@ import org.auctionsystem.AuctionSystem.dtos.requests.UserLoginRequest;
 import org.auctionsystem.AuctionSystem.dtos.requests.UserSignUpRequest;
 import org.auctionsystem.AuctionSystem.dtos.responses.UserLoginResponse;
 import org.auctionsystem.AuctionSystem.dtos.responses.UserSignUpResponse;
+import org.auctionsystem.AuctionSystem.event.NewUserEvent;
+import org.auctionsystem.AuctionSystem.eventProducer.EventProducer;
 import org.auctionsystem.AuctionSystem.exceptions.Messages;
 import org.auctionsystem.AuctionSystem.exceptions.UserAlreadyExistsException;
 import org.auctionsystem.AuctionSystem.exceptions.UserDoesNotExistException;
@@ -23,6 +25,9 @@ public class AuthenticationService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private EventProducer eventProducer;
+
     public UserSignUpResponse signUp(UserSignUpRequest userSignUpRequest){
         User user = AuthenticationMapper.mapUserSignUpRequestToUser(userSignUpRequest);
         if(userRepository.findByEmailAddress(user.getEmailAddress()) != null){
@@ -30,6 +35,10 @@ public class AuthenticationService {
         }
         else{
             userRepository.save(user);
+
+            NewUserEvent newUserEvent = new NewUserEvent(user.getId());
+            eventProducer.publishEvent(newUserEvent);
+
             return AuthenticationMapper.mapUserToSignUpResponse(user);
         }
     }
