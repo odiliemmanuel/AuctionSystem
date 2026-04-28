@@ -66,19 +66,15 @@ public class AuctionManagerMapper {
         createAuctionResponse.setId(auction.getId());
         createAuctionResponse.setProduct(auction.getProduct());
         createAuctionResponse.setNumberOfBidders(0);
-        createAuctionResponse.setStartTime();
+        createAuctionResponse.setStartTime(auction.getStartTime());
+        createAuctionResponse.setEndTime(auction.getEndTime());
+
+        return createAuctionResponse;
     }
 }
 
 
 
-//private String id;
-//private Product product;
-//private int numberOfBidders;
-//@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-//private LocalDateTime startTime;
-//
-//@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-//private LocalTime endTIme;
+
 
 
