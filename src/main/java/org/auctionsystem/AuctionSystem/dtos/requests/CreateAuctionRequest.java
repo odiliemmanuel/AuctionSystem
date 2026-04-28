@@ -13,7 +13,7 @@ public class CreateAuctionRequest {
     private String sellerId;
 
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-    private LocalDateTime startTime;
+    private LocalDateTime startTime = LocalDateTime.now();
 
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime endTime;
