@@ -7,5 +7,5 @@ public class NewBidderRequest {
 
     private String userId;
     private String auctionId;
-    private double amount;
+    private String amount;
 }
