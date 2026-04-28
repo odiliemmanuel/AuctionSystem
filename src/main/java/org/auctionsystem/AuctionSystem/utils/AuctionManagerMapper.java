@@ -51,7 +51,7 @@ public class AuctionManagerMapper {
         auction.setStartTime(createAuctionRequest.getStartTime());
         auction.setEndTime(createAuctionRequest.getEndTime());
 
-
+        return auction;
     }
 }
 
