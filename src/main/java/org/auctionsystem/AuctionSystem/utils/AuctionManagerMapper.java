@@ -50,6 +50,8 @@ public class AuctionManagerMapper {
         auction.setSellerId(createAuctionRequest.getSellerId());
         auction.setStartTime(createAuctionRequest.getStartTime());
         auction.setEndTime(createAuctionRequest.getEndTime());
+
+
     }
 }
 
