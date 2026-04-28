@@ -65,7 +65,8 @@ public class AuctionManagerMapper {
 
         createAuctionResponse.setId(auction.getId());
         createAuctionResponse.setProduct(auction.getProduct());
-        createAuctionResponse.set
+        createAuctionResponse.setNumberOfBidders(0);
+        createAuctionResponse.setStartTime();
     }
 }
 
