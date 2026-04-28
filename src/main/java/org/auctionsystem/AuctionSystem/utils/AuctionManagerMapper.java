@@ -12,11 +12,15 @@ public class AuctionManagerMapper {
         Auction auction = new Auction();
         Product product = new Product();
 
+        if(!createAuctionRequest.getProduct().getName().matches("^[A-Za-z]+$")){
+            throw new
+        }
         product.setName(createAuctionRequest.getProduct().getName());
         product.setDescription(createAuctionRequest.getProduct().getDescription());
         product.setPrice(createAuctionRequest.getProduct().getPrice());
+        product.setImage(createAuctionRequest.getProduct().getImage());
 
-        auction.setProduct();
+        auction.setProduct(product);
     }
 }
 
