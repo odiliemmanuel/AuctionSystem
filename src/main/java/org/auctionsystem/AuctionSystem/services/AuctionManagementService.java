@@ -6,6 +6,8 @@ import org.auctionsystem.AuctionSystem.data.repositories.ProductRepository;
 import org.auctionsystem.AuctionSystem.data.repositories.UserRepository;
 import org.auctionsystem.AuctionSystem.dtos.requests.CreateAuctionRequest;
 import org.auctionsystem.AuctionSystem.dtos.responses.CreateAuctionResponse;
+import org.auctionsystem.AuctionSystem.event.NewAuctionEvent;
+import org.auctionsystem.AuctionSystem.eventProducer.EventProducer;
 import org.auctionsystem.AuctionSystem.exceptions.Messages;
 import org.auctionsystem.AuctionSystem.exceptions.ProductAlreadyAuctionedBeforeBySellerException;
 import org.auctionsystem.AuctionSystem.utils.AuctionManagerMapper;
@@ -24,12 +26,25 @@ public class AuctionManagementService{
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private EventProducer eventProducer;
+
 
     public  CreateAuctionResponse organizeNewOption(CreateAuctionRequest createAuctionRequest){
         Auction auction = AuctionManagerMapper.mapCreateNewAuctionRequestToAuction(createAuctionRequest);
 
         if(productRepository.findById(auction.getProduct().getId()).isPresent() && userRepository.findById(auction.getSellerId()).isPresent()){
             throw new ProductAlreadyAuctionedBeforeBySellerException(Messages.PRODUCT_ALREADY_AUCTIONED_BEFORE_BY_SELLER_EXCEPTION);
+        }
+        else{
+            productRepository.save(auction.getProduct());
+            auctionRepository.save(auction);
+
+            NewAuctionEvent newAuctionEvent = new NewAuctionEvent(auction.getId());
+            eventProducer.publishEvent(newAuctionEvent);
+
+            return AuctionManagerMapper.mapCreateAuctionResponseToAuction(auction);
+
         }
 
     }
