@@ -23,7 +23,7 @@ public class Auction {
     private LocalDateTime startTime;
 
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-    private LocalTime endTIme;
+    private LocalDateTime endTime;
 
     private AuctionStatus status;
     private List<Bid> bidders;
