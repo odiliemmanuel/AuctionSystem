@@ -16,6 +16,6 @@ public class CreateAuctionRequest {
     private LocalDateTime startTime;
 
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-    private LocalDateTime endTIme;
+    private LocalDateTime endTime;
 
 }
