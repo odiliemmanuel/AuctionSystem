@@ -4,6 +4,8 @@ package org.auctionsystem.AuctionSystem.utils;
 import org.auctionsystem.AuctionSystem.data.models.Auction;
 import org.auctionsystem.AuctionSystem.data.models.Product;
 import org.auctionsystem.AuctionSystem.dtos.requests.CreateAuctionRequest;
+import org.auctionsystem.AuctionSystem.exceptions.InvalidInputException;
+import org.auctionsystem.AuctionSystem.exceptions.Messages;
 
 public class AuctionManagerMapper {
 
@@ -13,10 +15,24 @@ public class AuctionManagerMapper {
         Product product = new Product();
 
         if(!createAuctionRequest.getProduct().getName().matches("^[A-Za-z]+$")){
-            throw new
+            throw new InvalidInputException(Messages.INVALID_INPUT_EXCEPTION);
         }
-        product.setName(createAuctionRequest.getProduct().getName());
-        product.setDescription(createAuctionRequest.getProduct().getDescription());
+        else{
+            product.setName(createAuctionRequest.getProduct().getName());
+        }
+
+
+        if(!createAuctionRequest.getProduct().getDescription().matches("^[A-Za-z]+$")){
+            throw new InvalidInputException(Messages.INVALID_INPUT_EXCEPTION);
+        }
+        else{
+            product.setDescription(createAuctionRequest.getProduct().getDescription());
+        }
+
+        if(createAuctionRequest.getProduct().getPrice() < 10000){
+            throw new InvalidInputException(Messages.INVALID_INPUT_EXCEPTION);
+        }
+
         product.setPrice(createAuctionRequest.getProduct().getPrice());
         product.setImage(createAuctionRequest.getProduct().getImage());
 
