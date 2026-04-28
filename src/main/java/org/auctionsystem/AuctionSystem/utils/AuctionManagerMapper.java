@@ -8,7 +8,7 @@ public class AuctionManagerMapper {
 
 
     public static Auction mapCreateNewAuctionRequestToAuction(CreateAuctionRequest createAuctionRequest){
-
+        Auction auction = new Auction();
     }
 }
 
