@@ -30,13 +30,13 @@ public class AuctionManagerMapper {
             product.setDescription(createAuctionRequest.getProduct().getDescription());
         }
 
-        if(createAuctionRequest.getProduct().getPrice().matches("[0-9]+")){
+        if(!createAuctionRequest.getProduct().getPrice().matches("[0-9]+")){
             throw new InvalidInputException(Messages.INVALID_INPUT_EXCEPTION);
 
-            if(Integer.parseInt(createAuctionRequest.getProduct().getPrice()) < 10000){
-                throw new LowPriceOfProductException(Messages.LOW_PRICE_OF_PRODUCT_EXCEPTION);
-            }
 
+        }
+        if(Integer.parseInt(createAuctionRequest.getProduct().getPrice()) < 10000){
+            throw new LowPriceOfProductException(Messages.LOW_PRICE_OF_PRODUCT_EXCEPTION);
         }
 
         else{
@@ -55,12 +55,3 @@ public class AuctionManagerMapper {
     }
 }
 
-
-//private Product product;
-//private String sellerId;
-//
-//@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-//private LocalDateTime startTime;
-//
-//@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-//private LocalDateTime endTIme;
