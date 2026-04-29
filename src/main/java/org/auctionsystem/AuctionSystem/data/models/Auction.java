@@ -25,7 +25,7 @@ public class Auction {
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime endTime;
 
-    private AuctionStatus status = AuctionStatus.CLOSED;
+    private AuctionStatus status = AuctionStatus.OPEN;
     private List<Bid> bidders;
     private User winner;
     //    private int numberOfBidders;
