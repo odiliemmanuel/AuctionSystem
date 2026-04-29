@@ -7,4 +7,5 @@ public class Messages {
     public static final String INVALID_INPUT_EXCEPTION = "Invalid Input";
     public static final String LOW_PRICE_OF_PRODUCT_EXCEPTION = "Products to be auctioned should be of reasonable price";
     public static final String PRODUCT_ALREADY_AUCTIONED_BEFORE_BY_SELLER_EXCEPTION = "This product has already been auctioned by you";
+    public static final String AUCTION_DOES_NOT_EXIST_EXCEPTION = "Cannot find this Auction event";
 }
