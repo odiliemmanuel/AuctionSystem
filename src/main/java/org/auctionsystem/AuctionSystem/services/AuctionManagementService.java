@@ -16,6 +16,8 @@ import org.auctionsystem.AuctionSystem.utils.AuctionManagerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class AuctionManagementService{
 
@@ -54,6 +56,12 @@ public class AuctionManagementService{
 
     public CancelAuctionResponse cancelAuction(CancelAuctionRequest cancelAuctionRequest){
 
-        Auction auction = auctionRepository.findByIdjfj
+        Optional<Auction> auction = auctionRepository.findById(cancelAuctionRequest.getAuctionId());
+
+        if(!auction.isPresent()){
+
+        }
+
+
     }
 }
