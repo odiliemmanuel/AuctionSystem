@@ -2,6 +2,7 @@ package org.auctionsystem.AuctionSystem.utils;
 
 
 import org.auctionsystem.AuctionSystem.data.models.Auction;
+import org.auctionsystem.AuctionSystem.data.models.AuctionStatus;
 import org.auctionsystem.AuctionSystem.data.models.Product;
 import org.auctionsystem.AuctionSystem.dtos.requests.CreateAuctionRequest;
 import org.auctionsystem.AuctionSystem.dtos.responses.CreateAuctionResponse;
@@ -67,10 +68,16 @@ public class AuctionManagerMapper {
         createAuctionResponse.setNumberOfBidders(0);
         createAuctionResponse.setStartTime(auction.getStartTime());
         createAuctionResponse.setEndTime(auction.getEndTime());
+        createAuctionResponse.setCurrentHighestBid(auction.getCurrentHighestBid());
+        createAuctionResponse.setStatus(AuctionStatus.OPEN);
+        createAuctionResponse.setWinner(auction.getWinner());
 
         return createAuctionResponse;
     }
+
+
 }
+
 
 
 
