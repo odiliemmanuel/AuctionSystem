@@ -54,5 +54,6 @@ public class AuctionManagementService{
 
     public CancelAuctionResponse cancelAuction(CancelAuctionRequest cancelAuctionRequest){
 
+        Auction auction = auctionRepository.fin
     }
 }
