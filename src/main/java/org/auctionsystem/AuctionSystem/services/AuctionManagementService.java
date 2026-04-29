@@ -4,7 +4,9 @@ import org.auctionsystem.AuctionSystem.data.models.Auction;
 import org.auctionsystem.AuctionSystem.data.repositories.AuctionRepository;
 import org.auctionsystem.AuctionSystem.data.repositories.ProductRepository;
 import org.auctionsystem.AuctionSystem.data.repositories.UserRepository;
+import org.auctionsystem.AuctionSystem.dtos.requests.CancelAuctionRequest;
 import org.auctionsystem.AuctionSystem.dtos.requests.CreateAuctionRequest;
+import org.auctionsystem.AuctionSystem.dtos.responses.CancelAuctionResponse;
 import org.auctionsystem.AuctionSystem.dtos.responses.CreateAuctionResponse;
 import org.auctionsystem.AuctionSystem.event.NewAuctionEvent;
 import org.auctionsystem.AuctionSystem.eventProducer.EventProducer;
@@ -50,5 +52,7 @@ public class AuctionManagementService{
     }
 
 
-    public
+    public CancelAuctionResponse cancelAuction(CancelAuctionRequest cancelAuctionRequest){
+
+    }
 }
