@@ -10,6 +10,7 @@ import org.auctionsystem.AuctionSystem.dtos.responses.CancelAuctionResponse;
 import org.auctionsystem.AuctionSystem.dtos.responses.CreateAuctionResponse;
 import org.auctionsystem.AuctionSystem.event.NewAuctionEvent;
 import org.auctionsystem.AuctionSystem.eventProducer.EventProducer;
+import org.auctionsystem.AuctionSystem.exceptions.AuctionDoesNotExistException;
 import org.auctionsystem.AuctionSystem.exceptions.Messages;
 import org.auctionsystem.AuctionSystem.exceptions.ProductAlreadyAuctionedBeforeBySellerException;
 import org.auctionsystem.AuctionSystem.utils.AuctionManagerMapper;
@@ -59,6 +60,10 @@ public class AuctionManagementService{
         Optional<Auction> auction = auctionRepository.findById(cancelAuctionRequest.getAuctionId());
 
         if(!auction.isPresent()){
+
+            throw new AuctionDoesNotExistException(Messages.AUCTION_DOES_NOT_EXIST_EXCEPTION);
+        }
+        else{
 
         }
 
