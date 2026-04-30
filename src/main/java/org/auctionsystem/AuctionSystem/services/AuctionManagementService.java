@@ -65,6 +65,7 @@ public class AuctionManagementService{
         }
         else{
             auctionRepository.delete(auction);
+
             return AuctionManagerMapper.mapCancelAuctionResponseToAuction(auction);
         }
 
