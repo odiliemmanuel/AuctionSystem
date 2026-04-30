@@ -69,7 +69,7 @@ public class AuctionManagementService{
         else{
             auctionRepository.delete(auction);
             AuctionCancelledEvent auctionCancelledEvent = new AuctionCancelledEvent(auction.get().getId());
-            eventProducer.publishEvent(a);
+            eventProducer.publishEvent(auctionCancelledEvent);
             return AuctionManagerMapper.mapCancelAuctionResponseToAuction(auction);
         }
 
