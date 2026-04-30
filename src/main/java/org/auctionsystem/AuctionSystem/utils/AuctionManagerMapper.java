@@ -5,6 +5,7 @@ import org.auctionsystem.AuctionSystem.data.models.Auction;
 import org.auctionsystem.AuctionSystem.data.models.AuctionStatus;
 import org.auctionsystem.AuctionSystem.data.models.Product;
 import org.auctionsystem.AuctionSystem.dtos.requests.CreateAuctionRequest;
+import org.auctionsystem.AuctionSystem.dtos.responses.CancelAuctionResponse;
 import org.auctionsystem.AuctionSystem.dtos.responses.CreateAuctionResponse;
 import org.auctionsystem.AuctionSystem.exceptions.InvalidInputException;
 import org.auctionsystem.AuctionSystem.exceptions.LowPriceOfProductException;
@@ -76,7 +77,11 @@ public class AuctionManagerMapper {
     }
 
 
-    public static
+    public static CancelAuctionResponse mapCancelAuctionResponseToAuction(Auction auction){
+        CancelAuctionResponse cancelAuctionResponse = new CancelAuctionResponse();
+
+        cancelAuctionResponse.setStatus(AuctionStatus.CANCELLED);
+    }
 
 }
 
