@@ -5,7 +5,7 @@ public class NewAuctionEvent extends Event{
     private String auctionId;
 
     public NewAuctionEvent(String auctionId){
-        super("EVT-" + auctionId, "NEW_USER");
+        super("EVT-" + auctionId, "NEW_AUCTION");
         this.auctionId = auctionId;
     }
 }
