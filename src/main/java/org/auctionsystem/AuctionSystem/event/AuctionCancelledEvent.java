@@ -1,4 +1,4 @@
 package org.auctionsystem.AuctionSystem.event;
 
-public class AuctionCancelledEvent {
+public class AuctionCancelledEvent extends Event{
 }
