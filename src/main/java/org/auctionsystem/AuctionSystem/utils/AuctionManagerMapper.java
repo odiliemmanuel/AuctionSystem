@@ -81,6 +81,8 @@ public class AuctionManagerMapper {
         CancelAuctionResponse cancelAuctionResponse = new CancelAuctionResponse();
 
         cancelAuctionResponse.setStatus(AuctionStatus.CANCELLED);
+
+        return cancelAuctionResponse;
     }
 
 }
