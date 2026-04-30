@@ -11,6 +11,7 @@ import org.auctionsystem.AuctionSystem.exceptions.InvalidInputException;
 import org.auctionsystem.AuctionSystem.exceptions.LowPriceOfProductException;
 import org.auctionsystem.AuctionSystem.exceptions.Messages;
 
+import java.util.Optional;
 
 
 public class AuctionManagerMapper {
@@ -77,7 +78,7 @@ public class AuctionManagerMapper {
     }
 
 
-    public static CancelAuctionResponse mapCancelAuctionResponseToAuction(Auction auction){
+    public static CancelAuctionResponse mapCancelAuctionResponseToAuction(Optional<Auction> auction){
         CancelAuctionResponse cancelAuctionResponse = new CancelAuctionResponse();
 
         cancelAuctionResponse.setStatus(AuctionStatus.CANCELLED);
