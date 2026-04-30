@@ -8,6 +8,7 @@ import org.auctionsystem.AuctionSystem.dtos.requests.CancelAuctionRequest;
 import org.auctionsystem.AuctionSystem.dtos.requests.CreateAuctionRequest;
 import org.auctionsystem.AuctionSystem.dtos.responses.CancelAuctionResponse;
 import org.auctionsystem.AuctionSystem.dtos.responses.CreateAuctionResponse;
+import org.auctionsystem.AuctionSystem.event.AuctionCancelledEvent;
 import org.auctionsystem.AuctionSystem.event.NewAuctionEvent;
 import org.auctionsystem.AuctionSystem.eventProducer.EventProducer;
 import org.auctionsystem.AuctionSystem.exceptions.AuctionDoesNotExistException;
@@ -33,6 +34,8 @@ public class AuctionManagementService{
 
     @Autowired
     private EventProducer eventProducer;
+
+
 
 
     public  CreateAuctionResponse organizeNewOption(CreateAuctionRequest createAuctionRequest){
@@ -65,7 +68,8 @@ public class AuctionManagementService{
         }
         else{
             auctionRepository.delete(auction);
-
+            AuctionCancelledEvent auctionCancelledEvent = new AuctionCancelledEvent(auction.get().getId());
+            eventProducer.publishEvent(a);
             return AuctionManagerMapper.mapCancelAuctionResponseToAuction(auction);
         }
 
