@@ -4,6 +4,6 @@ public class AuctionCancelledEvent extends Event{
 
 
     public AuctionCancelledEvent(String auctionId) {
-        super(auctionId);
+        super("EVT-" + auctionId);
     }
 }
