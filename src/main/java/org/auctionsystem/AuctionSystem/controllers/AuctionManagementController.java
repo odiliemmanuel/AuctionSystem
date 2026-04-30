@@ -1,6 +1,8 @@
 package org.auctionsystem.AuctionSystem.controllers;
 
+import org.auctionsystem.AuctionSystem.dtos.requests.CancelAuctionRequest;
 import org.auctionsystem.AuctionSystem.dtos.requests.CreateAuctionRequest;
+import org.auctionsystem.AuctionSystem.exceptions.AuctionDoesNotExistException;
 import org.auctionsystem.AuctionSystem.exceptions.ProductAlreadyAuctionedBeforeBySellerException;
 import org.auctionsystem.AuctionSystem.services.AuctionManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,17 @@ public class AuctionManagementController {
             return ResponseEntity.status(HttpStatus.CREATED).body(auctionManagementService.organizeNewOption(createAuctionRequest));
         }
         catch(ProductAlreadyAuctionedBeforeBySellerException error){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error.getMessage());
+        }
+    }
+
+
+    @PostMapping("/cancel/auction")
+    public ResponseEntity<?> cancelAnAuction(CancelAuctionRequest cancelAuctionRequest){
+        try{
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(auctionManagementService.cancelAuction(cancelAuctionRequest));
+        }
+        catch(AuctionDoesNotExistException error){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error.getMessage());
         }
     }
