@@ -76,6 +76,8 @@ public class AuctionManagerMapper {
     }
 
 
+    public static
+
 }
 
 
