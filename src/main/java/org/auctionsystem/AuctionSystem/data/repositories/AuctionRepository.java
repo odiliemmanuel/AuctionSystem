@@ -8,5 +8,4 @@ import java.util.Optional;
 
 @Repository
 public interface AuctionRepository extends MongoRepository<Auction, String> {
-    void delete(Optional<Auction> auction);
 }
