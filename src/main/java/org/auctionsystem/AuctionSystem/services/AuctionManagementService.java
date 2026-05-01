@@ -67,7 +67,7 @@ public class AuctionManagementService{
             throw new AuctionDoesNotExistException(Messages.AUCTION_DOES_NOT_EXIST_EXCEPTION);
         }
         else{
-            auctionRepository.delete(auction);
+            auctionRepository.delete(auction.get());
             AuctionCancelledEvent auctionCancelledEvent = new AuctionCancelledEvent(auction.get().getId());
             eventProducer.publishEvent(auctionCancelledEvent);
             return AuctionManagerMapper.mapCancelAuctionResponseToAuction(auction);
