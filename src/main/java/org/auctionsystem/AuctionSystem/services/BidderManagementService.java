@@ -1,5 +1,6 @@
 package org.auctionsystem.AuctionSystem.services;
 
+import org.auctionsystem.AuctionSystem.data.models.Auction;
 import org.auctionsystem.AuctionSystem.data.models.User;
 import org.auctionsystem.AuctionSystem.data.repositories.AuctionRepository;
 import org.auctionsystem.AuctionSystem.data.repositories.BidderRepository;
@@ -23,7 +24,9 @@ public class BidderManagementService {
 
 
     public NewBidderResponse bidAuction(NewBidderRequest bidderRequest) {
-        User user
+        User user = userRepository.findById(bidderRequest.getUserId()).get();
+        Auction auction = auctionRepository.findById(bidderRequest.getAuctionId()).get();
+
 
     }
 }
