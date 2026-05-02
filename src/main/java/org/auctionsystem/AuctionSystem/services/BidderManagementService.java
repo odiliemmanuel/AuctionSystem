@@ -33,6 +33,10 @@ public class BidderManagementService {
         if(auction == null || auction.getStatus() == AuctionStatus.CLOSED) {
             throw new AuctionDoesNotExistException(Messages.AUCTION_DOES_NOT_EXIST_EXCEPTION);
         }
+        if(user == null){
+            throw new AuctionDoesNotExistException(Messages.USER_DOES_NOT_EXIST_EXCEPTION);
+        }
+        if
     }
 }
 //private String userId;
