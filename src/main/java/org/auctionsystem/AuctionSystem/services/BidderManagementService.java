@@ -1,5 +1,6 @@
 package org.auctionsystem.AuctionSystem.services;
 
+import org.auctionsystem.AuctionSystem.data.models.User;
 import org.auctionsystem.AuctionSystem.data.repositories.AuctionRepository;
 import org.auctionsystem.AuctionSystem.data.repositories.BidderRepository;
 import org.auctionsystem.AuctionSystem.data.repositories.UserRepository;
@@ -22,7 +23,7 @@ public class BidderManagementService {
 
 
     public NewBidderResponse bidAuction(NewBidderRequest bidderRequest) {
-
+        User user
 
     }
 }
