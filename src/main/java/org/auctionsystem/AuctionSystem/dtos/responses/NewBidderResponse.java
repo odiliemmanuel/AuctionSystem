@@ -15,7 +15,7 @@ public class NewBidderResponse {
     private String auctionId;
     private double amount;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime timeCreated;
 
     private BidStatus bidStatus;
