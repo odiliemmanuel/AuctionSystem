@@ -18,4 +18,5 @@ public class User {
     private String phoneNumber;
     private String password;
     private UserRole userRole;
+    private Wallet wallet;
 }
