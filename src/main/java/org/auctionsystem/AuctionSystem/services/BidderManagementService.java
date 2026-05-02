@@ -12,9 +12,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class BidderManagementService {
 
-    private BidderRepository bidderRepository;
-    private AuctionRepository auctionRepository;
-    private UserRepository userRepository;
+    private final BidderRepository bidderRepository;
+    private final AuctionRepository auctionRepository;
+    private final UserRepository userRepository;
 
     public BidderManagementService(BidderRepository bidderRepository,  AuctionRepository auctionRepository, UserRepository userRepository) {
         this.bidderRepository = bidderRepository;
