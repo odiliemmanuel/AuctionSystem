@@ -36,7 +36,9 @@ public class BidderManagementService {
         if(user == null){
             throw new AuctionDoesNotExistException(Messages.USER_DOES_NOT_EXIST_EXCEPTION);
         }
-        if
+        if(auction.getProduct().getPrice() > Double.parseDouble(bidderRequest.getAmount())){
+
+        }
     }
 }
 //private String userId;
