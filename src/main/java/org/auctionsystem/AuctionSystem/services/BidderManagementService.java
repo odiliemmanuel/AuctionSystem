@@ -6,6 +6,8 @@ import org.auctionsystem.AuctionSystem.data.repositories.BidderRepository;
 import org.auctionsystem.AuctionSystem.data.repositories.UserRepository;
 import org.auctionsystem.AuctionSystem.dtos.requests.NewBidderRequest;
 import org.auctionsystem.AuctionSystem.dtos.responses.NewBidderResponse;
+import org.auctionsystem.AuctionSystem.event.NewBidderEvent;
+import org.auctionsystem.AuctionSystem.eventProducer.EventProducer;
 import org.auctionsystem.AuctionSystem.exceptions.AuctionDoesNotExistException;
 import org.auctionsystem.AuctionSystem.exceptions.InsufficientFundsException;
 import org.auctionsystem.AuctionSystem.exceptions.Messages;
@@ -18,11 +20,13 @@ public class BidderManagementService {
     private final BidderRepository bidderRepository;
     private final AuctionRepository auctionRepository;
     private final UserRepository userRepository;
+    private final EventProducer eventProducer;
 
-    public BidderManagementService(BidderRepository bidderRepository,  AuctionRepository auctionRepository, UserRepository userRepository) {
+    public BidderManagementService(BidderRepository bidderRepository,  AuctionRepository auctionRepository, UserRepository userRepository, EventProducer eventProducer) {
         this.bidderRepository = bidderRepository;
         this.auctionRepository = auctionRepository;
         this.userRepository = userRepository;
+        this.eventProducer = eventProducer;
     }
 
 
@@ -58,7 +62,8 @@ public class BidderManagementService {
 
             bidderRepository.save(bidder);
 
-
+            NewBidderEvent newBidderEvent = new NewBidderEvent(bidder.getId(), bidder.getAmount());
+            eventProducer.publishEvent(newBidderEvent);
 
             return BidManagerMapper.mapNewBidderResponseToBid(bidder);
 
