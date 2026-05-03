@@ -2,6 +2,7 @@ package org.auctionsystem.AuctionSystem.services;
 
 import org.auctionsystem.AuctionSystem.data.models.Auction;
 import org.auctionsystem.AuctionSystem.data.models.AuctionStatus;
+import org.auctionsystem.AuctionSystem.data.models.Bid;
 import org.auctionsystem.AuctionSystem.data.models.User;
 import org.auctionsystem.AuctionSystem.data.repositories.AuctionRepository;
 import org.auctionsystem.AuctionSystem.data.repositories.BidderRepository;
@@ -40,6 +41,13 @@ public class BidderManagementService {
         if(auction.getProduct().getPrice() > Integer.parseInt(bidderRequest.getAmount())){
             throw new InsufficientFundsException(Messages.INSUFFICIENT_FUNDS_EXCEPTION);
         }
+
+        Bid bidder = new Bid();
+
+        bidder.setAuctionId(auction.getId());
+        bidder.setUserId(user.getId());
+        bidder.setAmount(Integer.parseInt(bidderRequest.getAmount()));
+        bidderRepository.save(bidder);
 
         if(user != null && auction.getStatus() == AuctionStatus.OPEN && auction != null) {
 
