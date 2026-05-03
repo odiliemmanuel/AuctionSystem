@@ -28,7 +28,7 @@ public class AuthenticationMapper {
 
         userSignUpResponse.setUsername(user.getUserName());
         userSignUpResponse.setPhoneNumber(user.getPhoneNumber());
-        userSignUpResponse.setMessage("Welcome to FlashCorp Blog App " + user.getUserName());
+        userSignUpResponse.setMessage("Welcome to FlashCorp App " + user.getUserName());
 
         return userSignUpResponse;
     }
