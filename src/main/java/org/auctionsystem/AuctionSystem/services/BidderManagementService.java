@@ -9,6 +9,7 @@ import org.auctionsystem.AuctionSystem.data.repositories.UserRepository;
 import org.auctionsystem.AuctionSystem.dtos.requests.NewBidderRequest;
 import org.auctionsystem.AuctionSystem.dtos.responses.NewBidderResponse;
 import org.auctionsystem.AuctionSystem.exceptions.AuctionDoesNotExistException;
+import org.auctionsystem.AuctionSystem.exceptions.InsufficientFundsException;
 import org.auctionsystem.AuctionSystem.exceptions.Messages;
 import org.springframework.stereotype.Service;
 
@@ -30,14 +31,18 @@ public class BidderManagementService {
         User user = userRepository.findById(bidderRequest.getUserId()).get();
         Auction auction = auctionRepository.findById(bidderRequest.getAuctionId()).get();
 
-        if(auction == null || auction.getStatus() == AuctionStatus.CLOSED) {
+        if(!auctionRepository.existsById(bidderRequest.getAuctionId())|| auction.getStatus() == AuctionStatus.CLOSED) {
             throw new AuctionDoesNotExistException(Messages.AUCTION_DOES_NOT_EXIST_EXCEPTION);
         }
-        if(user == null){
+        if(!userRepository.existsById(bidderRequest.getUserId())) {
             throw new AuctionDoesNotExistException(Messages.USER_DOES_NOT_EXIST_EXCEPTION);
         }
         if(auction.getProduct().getPrice() > Integer.parseInt(bidderRequest.getAmount())){
-            throw new
+            throw new InsufficientFundsException(Messages.INSUFFICIENT_FUNDS_EXCEPTION);
+        }
+
+        if(user != null && auction.getStatus() == AuctionStatus.OPEN && auction != null) {
+
         }
     }
 }
