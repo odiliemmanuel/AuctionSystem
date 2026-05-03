@@ -37,12 +37,12 @@ public class AuctionManagerMapper {
             product.setDescription(createAuctionRequest.getProduct().getDescription());
         }
 
-        if(!createAuctionRequest.getProduct().getPrice().matches("[0-9]+")){
+        if(!String.valueOf(createAuctionRequest.getProduct().getPrice()).matches("[0-9]+")){
             throw new InvalidInputException(Messages.INVALID_INPUT_EXCEPTION);
 
 
         }
-        if(Integer.parseInt(createAuctionRequest.getProduct().getPrice()) < 10000){
+        if(Integer.parseInt(String.valueOf(createAuctionRequest.getProduct().getPrice())) < 10000){
             throw new LowPriceOfProductException(Messages.LOW_PRICE_OF_PRODUCT_EXCEPTION);
         }
 
