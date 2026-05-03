@@ -11,6 +11,10 @@ public class BidManagerMapper {
         newBidderResponse.setBidId(bid.getId());
         newBidderResponse.setAuctionId(bid.getAuctionId());
         newBidderResponse.setUserId(bid.getUserId());
-        newBidderResponse.setBidStatus();
+        newBidderResponse.setBidStatus(bid.getBidStatus());
+        newBidderResponse.setAmount(bid.getAmount());
+        newBidderResponse.setTimeCreated(bid.getTimeCreated());
+
+        return newBidderResponse;
     }
 }
