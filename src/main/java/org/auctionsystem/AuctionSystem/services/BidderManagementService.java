@@ -46,6 +46,3 @@ public class BidderManagementService {
         }
     }
 }
-//private String userId;
-//private String auctionId;
-//private String amount;
