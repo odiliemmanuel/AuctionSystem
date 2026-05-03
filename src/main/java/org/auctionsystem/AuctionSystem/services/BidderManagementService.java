@@ -9,6 +9,7 @@ import org.auctionsystem.AuctionSystem.dtos.responses.NewBidderResponse;
 import org.auctionsystem.AuctionSystem.exceptions.AuctionDoesNotExistException;
 import org.auctionsystem.AuctionSystem.exceptions.InsufficientFundsException;
 import org.auctionsystem.AuctionSystem.exceptions.Messages;
+import org.auctionsystem.AuctionSystem.utils.BidManagerMapper;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -29,34 +30,42 @@ public class BidderManagementService {
         User user = userRepository.findById(bidderRequest.getUserId()).get();
         Auction auction = auctionRepository.findById(bidderRequest.getAuctionId()).get();
 
-        if(!auctionRepository.existsById(bidderRequest.getAuctionId())|| auction.getStatus() == AuctionStatus.CLOSED) {
+
+        if(!auctionRepository.existsById(bidderRequest.getAuctionId()) || auction.getStatus() == AuctionStatus.CLOSED) {
             throw new AuctionDoesNotExistException(Messages.AUCTION_DOES_NOT_EXIST_EXCEPTION);
         }
-        if(!userRepository.existsById(bidderRequest.getUserId())) {
+        else if(!userRepository.existsById(bidderRequest.getUserId())) {
             throw new AuctionDoesNotExistException(Messages.USER_DOES_NOT_EXIST_EXCEPTION);
         }
-        if(auction.getProduct().getPrice() > Integer.parseInt(bidderRequest.getAmount())){
+        else if(auction.getProduct().getPrice() > Integer.parseInt(bidderRequest.getAmount())){
             throw new InsufficientFundsException(Messages.INSUFFICIENT_FUNDS_EXCEPTION);
         }
 
-        Bid bidder = new Bid();
-
-        bidder.setAuctionId(auction.getId());
-        bidder.setUserId(user.getId());
-        bidder.setAmount(Integer.parseInt(bidderRequest.getAmount()));
-
-        if(auction.getCurrentHighestBid() > Integer.parseInt(bidderRequest.getAmount())){
-            bidder.setBidStatus(BidStatus.OUTBID);
-        }
         else{
+            Bid bidder = new Bid();
 
-            bidder.setBidStatus(BidStatus.WINNING);
+            bidder.setAuctionId(auction.getId());
+            bidder.setUserId(user.getId());
+            bidder.setAmount(Integer.parseInt(bidderRequest.getAmount()));
+
+            if(auction.getCurrentHighestBid() > Integer.parseInt(bidderRequest.getAmount())){
+                bidder.setBidStatus(BidStatus.OUTBID);
+            }
+            else{
+
+                bidder.setBidStatus(BidStatus.WINNING);
+            }
+
+            bidderRepository.save(bidder);
+
+
+
+            return BidManagerMapper.mapNewBidderResponseToBid(bidder);
+
         }
 
-        bidderRepository.save(bidder);
 
-        if(user != null && auction.getStatus() == AuctionStatus.OPEN && auction != null) {
-
-        }
     }
+
+
 }
