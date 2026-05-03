@@ -1,9 +1,6 @@
 package org.auctionsystem.AuctionSystem.services;
 
-import org.auctionsystem.AuctionSystem.data.models.Auction;
-import org.auctionsystem.AuctionSystem.data.models.AuctionStatus;
-import org.auctionsystem.AuctionSystem.data.models.Bid;
-import org.auctionsystem.AuctionSystem.data.models.User;
+import org.auctionsystem.AuctionSystem.data.models.*;
 import org.auctionsystem.AuctionSystem.data.repositories.AuctionRepository;
 import org.auctionsystem.AuctionSystem.data.repositories.BidderRepository;
 import org.auctionsystem.AuctionSystem.data.repositories.UserRepository;
@@ -47,6 +44,15 @@ public class BidderManagementService {
         bidder.setAuctionId(auction.getId());
         bidder.setUserId(user.getId());
         bidder.setAmount(Integer.parseInt(bidderRequest.getAmount()));
+
+        if(auction.getCurrentHighestBid() > Integer.parseInt(bidderRequest.getAmount())){
+            bidder.setBidStatus(BidStatus.OUTBID);
+        }
+        else{
+
+            bidder.setBidStatus(BidStatus.WINNING);
+        }
+
         bidderRepository.save(bidder);
 
         if(user != null && auction.getStatus() == AuctionStatus.OPEN && auction != null) {
