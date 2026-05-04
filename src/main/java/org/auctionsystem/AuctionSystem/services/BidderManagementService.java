@@ -12,7 +12,6 @@ import org.auctionsystem.AuctionSystem.exceptions.AuctionDoesNotExistException;
 import org.auctionsystem.AuctionSystem.exceptions.InsufficientFundsException;
 import org.auctionsystem.AuctionSystem.exceptions.Messages;
 import org.auctionsystem.AuctionSystem.utils.BidManagerMapper;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
