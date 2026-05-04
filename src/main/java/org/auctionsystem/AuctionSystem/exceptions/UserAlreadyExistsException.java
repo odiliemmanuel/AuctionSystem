@@ -1,5 +1,7 @@
 package org.auctionsystem.AuctionSystem.exceptions;
 
-public class User
+public class UserAlreadyExistsException extends RuntimeException {
+    public UserAlreadyExistsException(String message) {
+        super(message);
     }
 }
