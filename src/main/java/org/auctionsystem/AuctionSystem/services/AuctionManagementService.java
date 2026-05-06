@@ -1,6 +1,7 @@
 package org.auctionsystem.AuctionSystem.services;
 
 import org.auctionsystem.AuctionSystem.data.models.Auction;
+import org.auctionsystem.AuctionSystem.data.models.User;
 import org.auctionsystem.AuctionSystem.data.repositories.AuctionRepository;
 import org.auctionsystem.AuctionSystem.data.repositories.ProductRepository;
 import org.auctionsystem.AuctionSystem.data.repositories.UserRepository;
@@ -40,6 +41,7 @@ public class AuctionManagementService{
 
     public  CreateAuctionResponse organizeNewOption(CreateAuctionRequest createAuctionRequest){
         Auction auction = AuctionManagerMapper.mapCreateNewAuctionRequestToAuction(createAuctionRequest);
+        Optional<User> user = userRepository.findById(auction.getSellerId());
 
         if(productRepository.findById(auction.getProduct().getId()).isPresent() && userRepository.findById(auction.getSellerId()).isPresent()){
             throw new ProductAlreadyAuctionedBeforeBySellerException(Messages.PRODUCT_ALREADY_AUCTIONED_BEFORE_BY_SELLER_EXCEPTION);
@@ -48,7 +50,7 @@ public class AuctionManagementService{
             productRepository.save(auction.getProduct());
             auctionRepository.save(auction);
 
-            NewAuctionEvent newAuctionEvent = new NewAuctionEvent(auction.getId());
+            NewAuctionEvent newAuctionEvent = new NewAuctionEvent(auction.getId(), user.get().getEmailAddress());
             eventProducer.publishEvent(newAuctionEvent);
 
             return AuctionManagerMapper.mapCreateAuctionResponseToAuction(auction);

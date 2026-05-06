@@ -36,7 +36,7 @@ public class AuthenticationService {
         else{
             userRepository.save(user);
 
-            NewUserEvent newUserEvent = new NewUserEvent(user.getId());
+            NewUserEvent newUserEvent = new NewUserEvent(user.getId(), user.getEmailAddress(), user.getFirstName());
             eventProducer.publishEvent(newUserEvent);
 
             return AuthenticationMapper.mapUserToSignUpResponse(user);
