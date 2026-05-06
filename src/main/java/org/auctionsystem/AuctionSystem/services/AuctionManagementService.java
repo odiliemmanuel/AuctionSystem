@@ -32,7 +32,7 @@ public class AuctionManagementService{
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
+    @Autowred
     private EventProducer eventProducer;
 
 
