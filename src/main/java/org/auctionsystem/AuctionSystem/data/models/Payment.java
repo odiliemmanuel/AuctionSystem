@@ -10,6 +10,6 @@ public class Payment {
 
     @Id
     private String id;
-    private double amount;
+    private String amount;
     private PaymentStatus paymentStatus;
 }

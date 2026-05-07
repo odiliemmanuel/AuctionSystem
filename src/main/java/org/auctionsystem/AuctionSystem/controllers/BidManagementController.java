@@ -6,9 +6,7 @@ import org.auctionsystem.AuctionSystem.exceptions.AuctionDoesNotExistException;
 import org.auctionsystem.AuctionSystem.services.BidderManagementService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin("*")
 @RestController
@@ -21,7 +19,8 @@ public class BidManagementController {
         this.bidderManagementService = bidderManagementService;
     }
 
-    public ResponseEntity<?> placeBid(NewBidderRequest newBidderRequest){
+    @PostMapping("/place/bid")
+    public ResponseEntity<?> placeBid(@RequestBody NewBidderRequest newBidderRequest){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(bidderManagementService.bidAuction(newBidderRequest));
         }

@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class AuctionManagementService{
+public class AuctionManagementService {
 
     @Autowired
     private AuctionRepository auctionRepository;
@@ -36,45 +36,46 @@ public class AuctionManagementService{
     @Autowired
     private EventProducer eventProducer;
 
-
-
-
-    public  CreateAuctionResponse organizeNewOption(CreateAuctionRequest createAuctionRequest){
+    public CreateAuctionResponse organizeNewOption(CreateAuctionRequest createAuctionRequest) {
         Auction auction = AuctionManagerMapper.mapCreateNewAuctionRequestToAuction(createAuctionRequest);
         Optional<User> user = userRepository.findById(auction.getSellerId());
 
-        if(productRepository.findById(auction.getProduct().getId()).isPresent() && userRepository.findById(auction.getSellerId()).isPresent()){
-            throw new ProductAlreadyAuctionedBeforeBySellerException(Messages.PRODUCT_ALREADY_AUCTIONED_BEFORE_BY_SELLER_EXCEPTION);
+        boolean alreadyExists = auctionRepository.findAll()
+                .stream()
+                .anyMatch(existing ->
+                        existing.getSellerId().equals(auction.getSellerId()) &&
+                                existing.getProduct().getName()
+                                        .equalsIgnoreCase(auction.getProduct().getName())
+                );
+
+        if (alreadyExists) {
+            throw new ProductAlreadyAuctionedBeforeBySellerException(
+                    Messages.PRODUCT_ALREADY_AUCTIONED_BEFORE_BY_SELLER_EXCEPTION
+            );
         }
-        else{
-            productRepository.save(auction.getProduct());
-            auctionRepository.save(auction);
 
-            NewAuctionEvent newAuctionEvent = new NewAuctionEvent(auction.getId(), user.get().getEmailAddress());
-            eventProducer.publishEvent(newAuctionEvent);
+        productRepository.save(auction.getProduct());
 
-            return AuctionManagerMapper.mapCreateAuctionResponseToAuction(auction);
+        auctionRepository.save(auction);
 
-        }
+        NewAuctionEvent newAuctionEvent = new NewAuctionEvent(auction.getId(), user.get().getEmailAddress());
+        eventProducer.publishEvent(newAuctionEvent);
 
+        return AuctionManagerMapper.mapCreateAuctionResponseToAuction(auction);
     }
 
-
-    public CancelAuctionResponse cancelAuction(CancelAuctionRequest cancelAuctionRequest){
-
+    public CancelAuctionResponse cancelAuction(CancelAuctionRequest cancelAuctionRequest) {
         Optional<Auction> auction = auctionRepository.findById(cancelAuctionRequest.getAuctionId());
 
-        if(!auction.isPresent()){
-
+        if (!auction.isPresent()) {
             throw new AuctionDoesNotExistException(Messages.AUCTION_DOES_NOT_EXIST_EXCEPTION);
         }
-        else{
-            auctionRepository.delete(auction.get());
-            AuctionCancelledEvent auctionCancelledEvent = new AuctionCancelledEvent(auction.get().getId());
-            eventProducer.publishEvent(auctionCancelledEvent);
-            return AuctionManagerMapper.mapCancelAuctionResponseToAuction(auction);
-        }
 
+        auctionRepository.delete(auction.get());
 
+        AuctionCancelledEvent auctionCancelledEvent = new AuctionCancelledEvent(auction.get().getId());
+        eventProducer.publishEvent(auctionCancelledEvent);
+
+        return AuctionManagerMapper.mapCancelAuctionResponseToAuction(auction);
     }
 }

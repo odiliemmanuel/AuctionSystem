@@ -16,14 +16,9 @@ public class NewAuctionEvent extends Event{
         return auctionId;
     }
 
-    public void setAuctionId(String auctionId) {
-        this.auctionId = auctionId;
-    }
 
     public String getEmailAddress() {
         return emailAddress;
     }
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
-    }
+
 }
