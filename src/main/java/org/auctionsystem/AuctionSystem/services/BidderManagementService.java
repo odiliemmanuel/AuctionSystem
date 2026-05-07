@@ -11,6 +11,7 @@ import org.auctionsystem.AuctionSystem.eventProducer.EventProducer;
 import org.auctionsystem.AuctionSystem.exceptions.AuctionDoesNotExistException;
 import org.auctionsystem.AuctionSystem.exceptions.InsufficientFundsException;
 import org.auctionsystem.AuctionSystem.exceptions.Messages;
+import org.auctionsystem.AuctionSystem.exceptions.UserDoesNotExistException;
 import org.auctionsystem.AuctionSystem.utils.BidManagerMapper;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +41,7 @@ public class BidderManagementService {
             throw new AuctionDoesNotExistException(Messages.AUCTION_DOES_NOT_EXIST_EXCEPTION);
         }
         else if(!userRepository.existsById(bidderRequest.getUserId())) {
-            throw new AuctionDoesNotExistException(Messages.USER_DOES_NOT_EXIST_EXCEPTION);
+            throw new UserDoesNotExistException(Messages.USER_DOES_NOT_EXIST_EXCEPTION);
         }
         else if(auction.getProduct().getPrice() > Integer.parseInt(bidderRequest.getAmount())){
             throw new InsufficientFundsException(Messages.INSUFFICIENT_FUNDS_EXCEPTION);

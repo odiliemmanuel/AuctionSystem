@@ -36,7 +36,7 @@ public class AuctionManagementService {
     @Autowired
     private EventProducer eventProducer;
 
-    public CreateAuctionResponse organizeNewOption(CreateAuctionRequest createAuctionRequest) {
+    public CreateAuctionResponse organizeNewAuction(CreateAuctionRequest createAuctionRequest) {
         Auction auction = AuctionManagerMapper.mapCreateNewAuctionRequestToAuction(createAuctionRequest);
         Optional<User> user = userRepository.findById(auction.getSellerId());
 

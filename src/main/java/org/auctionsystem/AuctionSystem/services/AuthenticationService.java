@@ -10,6 +10,7 @@ import org.auctionsystem.AuctionSystem.dtos.responses.UserLoginResponse;
 import org.auctionsystem.AuctionSystem.dtos.responses.UserSignUpResponse;
 import org.auctionsystem.AuctionSystem.event.NewUserEvent;
 import org.auctionsystem.AuctionSystem.eventProducer.EventProducer;
+import org.auctionsystem.AuctionSystem.exceptions.InvalidInputException;
 import org.auctionsystem.AuctionSystem.exceptions.Messages;
 import org.auctionsystem.AuctionSystem.exceptions.UserAlreadyExistsException;
 import org.auctionsystem.AuctionSystem.exceptions.UserDoesNotExistException;
@@ -51,7 +52,7 @@ public class AuthenticationService {
         }
         User foundUser = userRepository.findByEmailAddress(userLoginRequest.getEmailAddress());
 
-        if(!BCrypt.checkpw(userLoginRequest.getPassword(), foundUser.getPassword()))throw new IllegalArgumentException("invalid password");
+        if(!BCrypt.checkpw(userLoginRequest.getPassword(), foundUser.getPassword()))throw new InvalidInputException(Messages.INVALID_INPUT_EXCEPTION);
         return AuthenticationMapper.mapUserLoginResponseToUser(foundUser);
 
     }

@@ -22,7 +22,7 @@ public class AuctionManagementController {
     @PostMapping("/create/new/auction")
     public ResponseEntity<?> createNewAuction(@RequestBody CreateAuctionRequest createAuctionRequest){
         try{
-            return ResponseEntity.status(HttpStatus.CREATED).body(auctionManagementService.organizeNewOption(createAuctionRequest));
+            return ResponseEntity.status(HttpStatus.CREATED).body(auctionManagementService.organizeNewAuction(createAuctionRequest));
         }
         catch(ProductAlreadyAuctionedBeforeBySellerException error){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error.getMessage());

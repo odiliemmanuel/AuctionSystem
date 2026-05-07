@@ -3,6 +3,8 @@ package org.auctionsystem.AuctionSystem.controllers;
 
 import org.auctionsystem.AuctionSystem.dtos.requests.NewBidderRequest;
 import org.auctionsystem.AuctionSystem.exceptions.AuctionDoesNotExistException;
+import org.auctionsystem.AuctionSystem.exceptions.InsufficientFundsException;
+import org.auctionsystem.AuctionSystem.exceptions.UserDoesNotExistException;
 import org.auctionsystem.AuctionSystem.services.BidderManagementService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +26,7 @@ public class BidManagementController {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(bidderManagementService.bidAuction(newBidderRequest));
         }
-        catch(AuctionDoesNotExistException error){
+        catch(AuctionDoesNotExistException | UserDoesNotExistException | InsufficientFundsException error){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error.getMessage());
         }
     }

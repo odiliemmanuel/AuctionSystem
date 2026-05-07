@@ -2,6 +2,7 @@ package org.auctionsystem.AuctionSystem.controllers;
 
 import org.auctionsystem.AuctionSystem.dtos.requests.UserLoginRequest;
 import org.auctionsystem.AuctionSystem.dtos.requests.UserSignUpRequest;
+import org.auctionsystem.AuctionSystem.exceptions.InvalidInputException;
 import org.auctionsystem.AuctionSystem.exceptions.UserAlreadyExistsException;
 import org.auctionsystem.AuctionSystem.exceptions.UserDoesNotExistException;
 import org.auctionsystem.AuctionSystem.services.AuthenticationService;
@@ -38,7 +39,7 @@ public class AuthenticationController {
         try{
             return ResponseEntity.status(HttpStatus.FOUND).body(authenticationService.logIn(userLoginRequest));
         }
-        catch (UserDoesNotExistException error){
+        catch (UserDoesNotExistException | InvalidInputException error){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error.getMessage());
         }
     }
