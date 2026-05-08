@@ -2,6 +2,8 @@ package org.auctionsystem.AuctionSystem.event;
 
 public class NewBidderEvent extends Event{
 
+    private String emailAddress;
+    private String auctionId;
     private String bidId;
     private double amount;
 

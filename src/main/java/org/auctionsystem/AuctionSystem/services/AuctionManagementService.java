@@ -66,6 +66,7 @@ public class AuctionManagementService {
 
     public CancelAuctionResponse cancelAuction(CancelAuctionRequest cancelAuctionRequest) {
         Optional<Auction> auction = auctionRepository.findById(cancelAuctionRequest.getAuctionId());
+        Optional<User> user = userRepository.findById(cancelAuctionRequest.getSellerId());
 
         if (!auction.isPresent()) {
             throw new AuctionDoesNotExistException(Messages.AUCTION_DOES_NOT_EXIST_EXCEPTION);
@@ -73,7 +74,7 @@ public class AuctionManagementService {
 
         auctionRepository.delete(auction.get());
 
-        AuctionCancelledEvent auctionCancelledEvent = new AuctionCancelledEvent(auction.get().getId());
+        AuctionCancelledEvent auctionCancelledEvent = new AuctionCancelledEvent(auction.get().getId(),  user.get().getEmailAddress());
         eventProducer.publishEvent(auctionCancelledEvent);
 
         return AuctionManagerMapper.mapCancelAuctionResponseToAuction(auction);
