@@ -64,7 +64,7 @@ public class BidderManagementService {
 
             bidderRepository.save(bidder);
 
-            NewBidderEvent newBidderEvent = new NewBidderEvent(bidder.getId(), bidder.getAmount());
+            NewBidderEvent newBidderEvent = new NewBidderEvent(bidder.getId(), bidder.getAmount(), user.getEmailAddress(), bidder.getUserId());
             eventProducer.publishEvent(newBidderEvent);
 
             return BidManagerMapper.mapNewBidderResponseToBid(bidder);
