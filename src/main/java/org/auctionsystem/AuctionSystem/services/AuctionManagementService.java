@@ -15,6 +15,7 @@ import org.auctionsystem.AuctionSystem.eventProducer.EventProducer;
 import org.auctionsystem.AuctionSystem.exceptions.AuctionDoesNotExistException;
 import org.auctionsystem.AuctionSystem.exceptions.Messages;
 import org.auctionsystem.AuctionSystem.exceptions.ProductAlreadyAuctionedBeforeBySellerException;
+import org.auctionsystem.AuctionSystem.exceptions.UserDoesNotExistException;
 import org.auctionsystem.AuctionSystem.utils.AuctionManagerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,9 @@ public class AuctionManagementService {
         Auction auction = AuctionManagerMapper.mapCreateNewAuctionRequestToAuction(createAuctionRequest);
         Optional<User> user = userRepository.findById(auction.getSellerId());
 
+        if(!user.isPresent()) {
+            throw new UserDoesNotExistException(Messages.USER_DOES_NOT_EXIST_EXCEPTION);
+        }
         boolean alreadyExists = auctionRepository.findAll()
                 .stream()
                 .anyMatch(existing ->

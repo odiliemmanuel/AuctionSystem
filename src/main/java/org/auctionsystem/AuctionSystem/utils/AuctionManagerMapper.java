@@ -18,13 +18,13 @@ public class AuctionManagerMapper {
         Auction auction = new Auction();
         Product product = new Product();
 
-        // Name: letters only, no spaces
-        if (!createAuctionRequest.getProduct().getName().matches("^[A-Za-z]+$")) {
+
+        if (!createAuctionRequest.getProduct().getName().matches("^[A-Za-z\\s]+$")) {
             throw new InvalidInputException(Messages.INVALID_INPUT_EXCEPTION);
         }
         product.setName(createAuctionRequest.getProduct().getName());
 
-        if (!createAuctionRequest.getProduct().getDescription().matches("^[A-Za-z ]+$")) {
+        if (!createAuctionRequest.getProduct().getDescription().matches("^[A-Za-z\\s]+$")) {
             throw new InvalidInputException(Messages.INVALID_INPUT_EXCEPTION);
         }
         product.setDescription(createAuctionRequest.getProduct().getDescription());
