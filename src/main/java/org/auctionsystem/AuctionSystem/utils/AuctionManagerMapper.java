@@ -34,7 +34,8 @@ public class AuctionManagerMapper {
             throw new InvalidInputException(Messages.INVALID_INPUT_EXCEPTION);
         }
         if (price < 10000) {
-
+            throw new LowPriceOfProductException(Messages.LOW_PRICE_OF_PRODUCT_EXCEPTION);
+        }
         product.setPrice(price);
 
         product.setImage(createAuctionRequest.getProduct().getImage());
